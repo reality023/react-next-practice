@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const plugin = require("tailwindcss/plugin");
+
 const px0to10 = { ...Array.from(Array(11)).map((_, i) => `${i}px`) };
 const px0to100 = { ...Array.from(Array(101)).map((_, i) => `${i}px`) };
 const px0to200 = { ...Array.from(Array(201)).map((_, i) => `${i}px`) };
@@ -26,5 +28,15 @@ module.exports = {
 		},
 	},
 	variants: { extend: {} },
-	plugins: [],
+	plugins: [
+		plugin(function ({ addUtilities }) {
+			const newUtilities = {
+				".text-shadow": {
+					textShadow: "1px 1px 5px rgba(0, 0, 0, 0.3)",
+				},
+			};
+
+			addUtilities(newUtilities);
+		}),
+	],
 };
