@@ -57,7 +57,7 @@ const Auth = styled.div<AuthProps>`
 		}
 	}};
 
-	transition: height 0.5s;
+	transition: height 0.3s;
 `;
 
 const AuthWrapper = styled.div<AuthProps>`
@@ -70,5 +70,5 @@ const AuthWrapper = styled.div<AuthProps>`
 			return tw`left-0`;
 		}
 	}};
-	transition: left 0.5s;
+	transition: left 0.3s;
 `;
