@@ -1,19 +1,29 @@
-import { NextComponentType } from "next";
 import tw, { styled } from "twin.macro";
+import { IoArrowBack } from "react-icons/io5";
 
-const Register: NextComponentType = () => {
+interface RegisterProps {
+	setRegisterState: (state: boolean) => void;
+}
+
+const Register: React.FC<RegisterProps> = ({ setRegisterState }) => {
 	return (
 		<FormContainer>
-			<h2>LOGIN</h2>
+			<Back
+				onClick={() => {
+					setRegisterState(false);
+				}}
+			>
+				<IoArrowBack />
+			</Back>
+			<h2>Register</h2>
 			<form>
 				<input type="text" placeholder="ID" />
 				<input type="password" placeholder="PASSWORD" />
-				<button type="submit">LOGIN</button>
+				<input type="password" placeholder="PASSWORD CONFIRM" />
+				<input type="email" placeholder="EMAIL" />
+				<input type="text" placeholder="NICKNAME" />
+				<button type="submit">REGISTER</button>
 			</form>
-			<div className="goto-signup-box">
-				<span>Don&apos;t have an account?</span>
-				<a href="#">Sign Up</a>
-			</div>
 		</FormContainer>
 	);
 };
@@ -21,7 +31,7 @@ const Register: NextComponentType = () => {
 export default Register;
 
 const FormContainer = styled.div`
-	${tw`w-350 h-420 flex flex-col items-center rounded-5 flex-shrink-0`};
+	${tw`w-350 flex flex-col items-center rounded-5 flex-shrink-0 relative`};
 
 	h2 {
 		${tw`text-4xl font-bold py-40 text-[#673cbe]`};
@@ -42,15 +52,8 @@ const FormContainer = styled.div`
 			${tw`w-full py-30 bg-[#673cbe] text-white rounded-10 mt-20 hover:bg-[#3f2377] transition-colors duration-300`};
 		}
 	}
+`;
 
-	.goto-signup-box {
-		${tw`w-full flex justify-end items-center mt-20 text-12 px-45`};
-
-		span {
-		}
-
-		a {
-			${tw`text-[#3f2377] ml-10`};
-		}
-	}
+const Back = styled.div`
+	${tw`absolute left-40 top-45 text-24 text-[#673cbe] cursor-pointer transition-colors duration-300 hover:text-[#3f2377]`};
 `;

@@ -1,11 +1,11 @@
 import { NextPage } from "next";
 import { useState } from "react";
 import tw, { styled } from "twin.macro";
-import Login from "../auth/Login";
-import Register from "../auth/Register";
+import Login from "../auth/login";
+import Register from "../auth/register";
 
 const Home: NextPage = () => {
-	const [isRegisterState, setRegisterState] = useState(false);
+	const [isRegisterState, setRegisterState] = useState<boolean>(false);
 
 	return (
 		<RootContainer>
@@ -15,9 +15,11 @@ const Home: NextPage = () => {
 				</h1>
 				<p>Word Application</p>
 			</Header>
-			<Auth isRegister={isRegisterState}>
-				<Login setRegisterState={setRegisterState} />
-				<Register />
+			<Auth isActive={isRegisterState}>
+				<AuthWrapper isActive={isRegisterState}>
+					<Login setRegisterState={setRegisterState} />
+					<Register setRegisterState={setRegisterState} />
+				</AuthWrapper>
 			</Auth>
 		</RootContainer>
 	);
@@ -40,15 +42,33 @@ const Header = styled.div`
 	}
 `;
 
-const Auth = styled.div`
+interface AuthProps {
+	isActive: boolean;
+}
+
+const Auth = styled.div<AuthProps>`
 	${tw`flex flex-nowrap w-350 overflow-hidden bg-white rounded-10 shadow-2xl`};
 
-	${({ isRegister }) => {
-		if (isRegister) {
-			return tw`translate-x-0`;
+	${(props: AuthProps) => {
+		if (props.isActive) {
+			return tw`h-580`;
 		} else {
-			return tw`translate-x-full`;
+			return tw`h-410`;
 		}
 	}};
-	transition: transform 0.5s;
+
+	transition: height 0.5s;
+`;
+
+const AuthWrapper = styled.div<AuthProps>`
+	${tw`w-700 h-full flex flex-nowrap relative`};
+
+	${(props: AuthProps) => {
+		if (props.isActive) {
+			return tw`left-[-350px]`;
+		} else {
+			return tw`left-0`;
+		}
+	}};
+	transition: left 0.5s;
 `;

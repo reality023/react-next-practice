@@ -1,14 +1,12 @@
-import { NextComponentType, NextPageContext } from "next";
+import { NextPageContext } from "next";
 import React from "react";
 import tw, { styled } from "twin.macro";
 
 interface LoginProps {
-	setRegisterState: () => void;
+	setRegisterState: (state: boolean) => void;
 }
 
-const Login: NextComponentType<NextPageContext, {}, LoginProps> = ({
-	setRegisterState,
-}: LoginProps) => {
+const Login: React.FC<LoginProps> = ({ setRegisterState }) => {
 	return (
 		<FormContainer>
 			<h2>LOGIN</h2>
@@ -19,7 +17,13 @@ const Login: NextComponentType<NextPageContext, {}, LoginProps> = ({
 			</form>
 			<div className="goto-signup-box">
 				<span>Don&apos;t have an account?</span>
-				<a href="#">Sign Up</a>
+				<button
+					onClick={() => {
+						setRegisterState(true);
+					}}
+				>
+					Sign Up
+				</button>
 			</div>
 		</FormContainer>
 	);
@@ -56,7 +60,7 @@ const FormContainer = styled.div`
 		span {
 		}
 
-		a {
+		button {
 			${tw`text-[#3f2377] ml-10`};
 		}
 	}
